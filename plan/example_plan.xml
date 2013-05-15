@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<testplan>
+    <suite name="tct-alarm-tests">
+        <command>WRTLauncher tct-alarm-tests</command>
+    </suite>
+    <suite name="tct-application-tests">
+        <command>WRTLauncher tct-application-tests</command>
+    </suite>
+</testplan>
