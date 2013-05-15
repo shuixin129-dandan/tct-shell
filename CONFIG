@@ -1,6 +1,5 @@
 [TCTSHELL]
-#TEST_SUITE_DIR  = /home/package/
-TEST_SUITE_DIR  = /home/joey/package/0426/TCT2.1-3rd/package/
+TEST_SUITE_DIR  = /home/package/
 WRT_LAUNCHR_CMD = WRTLauncher
 TCT_SHELL_HOME  = /opt/testkit/shell
 TCT_PLAN_FOLDER = /opt/testkit/shell/plan/
