@@ -423,12 +423,12 @@ class WrapperRunner:
     def prepare_testplan(self, testplan_xml, running_mode, f_suites, result_xml):
         print "preparing test plan"
         self.running_mode = running_mode
-        if running_mode == "plan":
+        if running_mode == Constants.RUNNING_MODE_PLAN:
             self.load_testplan_xml(testplan_xml)
-        elif running_mode == "result":
+        elif running_mode == Constants.RUNNING_MODE_RESULT:
             print "reading result..."
             self.read_result_xml(result_xml)
-        elif running_mode == "suites":
+        elif running_mode == Constants.RUNNING_MODE_SUITES:
             self.prepare_pkg(f_suites)
 
     def load_testplan_xml(self, testplan_xml):

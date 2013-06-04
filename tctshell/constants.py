@@ -78,6 +78,11 @@ class Constants:
      
      REGEX_FOR_SPLIT_PKG_NAME = "-\d\.\d\.\d"
 
+     #Running Mode
+     RUNNING_MODE_PLAN = "plan"
+     RUNNING_MODE_RESULT = "result"
+     RUNNING_MODE_SUITES = "suites"
+
      @staticmethod
      def add_right_enbrace(param):
          param = param.rstrip()
