@@ -176,11 +176,69 @@ Note: \n\
          PARSERS = OptionParser(option_list=option_list, usage=self.USAGE)
          (self.options, args) = PARSERS.parse_args()
          if self.is_testplan_mode():
+
+             conflicts = ["-p, --testplan"]
+             if self.options.fail_result_xml is not None:
+                conflicts.append("-r, --rerun-fail")
+             if self.options.suites is not None:
+                conflicts.append("-t, --test") 
+             self.conflict_exit(conflicts)
+                 
+             if self.options.testcase_id is not None:
+                 conflicts.append("--id")
+                 self.conflict_exit(conflicts)
+             
              self.running_mode = "plan"
          elif self.options.fail_result_xml is not None:
+             
+             conflicts = ["-r, --rerun-fail"]
+             if self.options.suites is not None:
+                 conflicts.append("-t, --test")
+                 self.conflict_exit(conflicts)
+
+             if self.options.testcase_id is not None:
+                 conflicts.append("--id")
+                 self.conflict_exit(conflicts)
+             
              self.running_mode = "result"
          elif self.options.suites is not None:
              self.running_mode = "suites"
+
+         if self.options.all_tc and self.options.only_manual:
+             conflicts = ["--all", "--manual"]
+             self.conflict_exit(conflicts)
+
+         self.check_args_number()
+
+     def check_args_number(self):
+         opt = ""
+         if self.running_mode == "plan" and len(self.options.testplan_file) < 1:
+             opt = "-p, --testplan"
+         elif self.running_mode == "result" and len(self.options.fail_result_xml) < 1:
+             opt = "-r, --rerun-fail"
+         elif self.running_mode == "suites" and len(self.options.suites) < 1:
+             opt = "-t, --test"
+         elif self.options.capability_file is not None and len(self.options.capability_file) < 1:
+             opt = "-c, --capability"
+         elif self.options.deviceid is not None and len(self.options.deviceid) < 1:
+             opt = "--deviceid"
+         elif self.options.testcase_id is not None and len(self.options.testcase_id) < 1:
+             opt = "--id"
+
+         if len(opt) > 0:
+             os.system("tct-shell -h")
+             print "\ntct-shell: error: \"%s\" option requires an argument" % opt
+             sys.exit(1)
+
+             
+
+     def conflict_exit(self, conflicts):
+         if conflicts == None or len(conflicts) <= 1:
+             return
+
+         os.system("tct-shell -h")
+         print "\ntct-shell: Conflicted options: %s" % conflicts
+         sys.exit(1)
 
      def get_suite_param(self):
          param = Constants.XMLFILE_PREFF + "\""

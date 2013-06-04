@@ -442,6 +442,7 @@ class WrapperRunner:
                 suite.to_str()
         except Exception, e:
             print "[ Error: reading testplan XML fail, error: %s ]\n" % e
+            sys.exit(1)
 
     def prepare_pkg(self, f_suites):
         if f_suites:
@@ -490,6 +491,7 @@ class WrapperRunner:
                     self.suites[suite.get_name()] = suite
         except Exception, e:
             print "[ Error: reading original Result XML fail, error: %s ]\n" % e
+            sys.exit(1)
 
     def rebuild_fail_xml(self):
         folder_name = Constants.TEMP_UNPASSED_XML_FOLDER
