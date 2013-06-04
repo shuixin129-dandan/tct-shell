@@ -184,7 +184,7 @@ Note: \n\
                 conflicts.append("-t, --test") 
              self.conflict_exit(conflicts)
              
-             self.running_mode = "plan"
+             self.running_mode = Constants.RUNNING_MODE_PLAN
          elif self.options.fail_result_xml is not None:
              
              conflicts = ["-r, --rerun-fail"]
@@ -192,9 +192,9 @@ Note: \n\
                  conflicts.append("-t, --test")
                  self.conflict_exit(conflicts)
              
-             self.running_mode = "result"
+             self.running_mode = Constants.RUNNING_MODE_RESULT
          elif self.options.suites is not None:
-             self.running_mode = "suites"
+             self.running_mode = Constants.RUNNING_MODE_SUITES
 
          if self.options.all_tc and self.options.only_manual:
              conflicts = ["--all", "--manual"]
@@ -204,11 +204,11 @@ Note: \n\
 
      def check_args_number(self):
          opt = ""
-         if self.running_mode == "plan" and len(self.options.testplan_file) < 1:
+         if self.running_mode == Constants.RUNNING_MODE_PLAN and len(self.options.testplan_file) < 1:
              opt = "-p, --testplan"
-         elif self.running_mode == "result" and len(self.options.fail_result_xml) < 1:
+         elif self.running_mode == Constants.RUNNING_MODE_RESULT and len(self.options.fail_result_xml) < 1:
              opt = "-r, --rerun-fail"
-         elif self.running_mode == "suites" and len(self.options.suites) < 1:
+         elif self.running_mode == Constants.RUNNING_MODE_SUITES and len(self.options.suites) < 1:
              opt = "-t, --test"
          elif self.options.capability_file is not None and len(self.options.capability_file) < 1:
              opt = "-c, --capability"
