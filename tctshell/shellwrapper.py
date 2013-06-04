@@ -183,10 +183,6 @@ Note: \n\
              if self.options.suites is not None:
                 conflicts.append("-t, --test") 
              self.conflict_exit(conflicts)
-                 
-             if self.options.testcase_id is not None:
-                 conflicts.append("--id")
-                 self.conflict_exit(conflicts)
              
              self.running_mode = "plan"
          elif self.options.fail_result_xml is not None:
@@ -194,10 +190,6 @@ Note: \n\
              conflicts = ["-r, --rerun-fail"]
              if self.options.suites is not None:
                  conflicts.append("-t, --test")
-                 self.conflict_exit(conflicts)
-
-             if self.options.testcase_id is not None:
-                 conflicts.append("--id")
                  self.conflict_exit(conflicts)
              
              self.running_mode = "result"
