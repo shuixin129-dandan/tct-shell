@@ -1,0 +1,5 @@
+tct-shell (1.0.0) unstable; urgency=low
+
+  * Packaged for Ubuntu
+
+ -- Ed Bartosh <eduard.bartosh@intel.com>  Mon, 06 May 2013 14:37:15 +0300

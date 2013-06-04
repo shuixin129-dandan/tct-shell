@@ -22,7 +22,7 @@
 import ConfigParser
 import os
 
-CONFIG_FILE = "/opt/testkit/shell/CONFIG"
+CONFIG_FILE = "/opt/tct/shell/CONFIG"
 
 parser = ConfigParser.ConfigParser()
 parser.read(CONFIG_FILE)
@@ -46,9 +46,11 @@ class Constants:
      
      RERUN_OUTPUT = " -o " + TEMP_UNPASSED_XML_FOLDER + "result.xml"
 
+     CAPABILITY_SUITE_NAME = "capability-tests"
+
      TCT_PLAN_FOLDER = parser.get('TCTSHELL', 'TCT_PLAN_FOLDER')
 
-     STYLE_FOLDER = "/opt/testkit/shell/style/*"
+     STYLE_FOLDER = "/opt/tct/shell/style/*"
 
      #PARAM Option
      XMLFILE_PREFF = "-f device:"

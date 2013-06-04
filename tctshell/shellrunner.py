@@ -24,6 +24,7 @@ import os
 from constants import Constants
 import glob
 import datetime
+import sys
 
 class PlanSuite:
     def __init__(self, name, cmd):
@@ -290,6 +291,21 @@ class WrapperRunner:
         link = "ln -s '%s' '%s'" % (self.latest_result_folder, "latest")
         os.system(link)
 
+    def check_capability_suite(self):
+        is_include = False
+        for suite_name in self.suites:
+            if Constants.CAPABILITY_SUITE_NAME in suite_name:
+                is_include = True
+                break
+        return is_include
+
+    def exit_without_capability(self, wrapper):
+        print "Checking capability"
+        if not wrapper.is_cap_param_available():
+            if self.check_capability_suite():
+                print "The capability related suite is in the plan, but no capability XML is available. Please refer to the file %scapability.xml to edit and input capability XML file before running test" % Constants.TCT_PLAN_FOLDER
+                sys.exit(1)
+
     def execute_suite_in_loop(self, wrapper):
         self.create_result_folder()
         if wrapper.is_fail_rerun_mode():
@@ -310,6 +326,8 @@ class WrapperRunner:
             command += "%s " % wrapper.get_manual_case_param()
             command += "%s " % wrapper.get_testcase_id()
             command += " -o \"%s.xml\"" % (self.latest_result_folder + suite_name)
+            if wrapper.is_fail_rerun_mode():
+                command += " --rerun"
             print command
             os.system(command)
 
@@ -486,7 +504,6 @@ class WrapperRunner:
         for suite_name in self.suites.keys():
             suite = self.suites[suite_name]
             suite.to_xml()
-        pass
 
     def merge_result_xml(self, origin_xml, result_xml):
         try:

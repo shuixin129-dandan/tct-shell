@@ -1,8 +1,8 @@
 [TCTSHELL]
 TEST_SUITE_DIR  = /home/package/
 WRT_LAUNCHR_CMD = WRTLauncher
-TCT_SHELL_HOME  = /opt/testkit/shell
-TCT_PLAN_FOLDER = /opt/testkit/shell/plan/
+TCT_SHELL_HOME  = /opt/tct/shell
+TCT_PLAN_FOLDER = /opt/tct/shell/plan/
 
 [Device]
 DEVICE_TMP_FOLDER = /tmp/

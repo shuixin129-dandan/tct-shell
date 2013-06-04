@@ -1,0 +1,13 @@
+Source: tct-shell
+Section: utils
+Priority: standard
+Maintainer: Lei Yang <lei.a.yang@intel.com>
+Build-Depends: debhelper (>= 8.0.0), python-setuptools, python-support
+Standards-Version: 3.9.4
+ 
+Package: tct-shell
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Description: Console tool for Tizen Compliance Test
+ This tool provides an alternative way to execute TCT with testkit-lite
+ when testkit-manager is not available

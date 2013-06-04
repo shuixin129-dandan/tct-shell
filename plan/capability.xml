@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capabilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="capability.xsd">
+	<capability name="bluetooth" support="true" type="boolean" />
+	<capability name="nfc" support="true" type="boolean" />
+	<capability name="multiTouchCount" support="true" type="Integer">
+		<value>11</value>
+	</capability>
+	<capability name="location" support="false" type="boolean" />
+	<capability name="platformName" support="true" type="String">
+		<value>platformName</value>
+	</capability>
+	<capability name="platformVersion" support="true" type="String">
+		<value>2.1.1</value>
+	</capability>
+	<capability name="duid" support="true" type="Integer">
+		<value>1</value>
+	</capability>
+</capabilities>

@@ -122,7 +122,7 @@ Note: \n\
                     make_option("--plan-list", dest="show_plan_folder", 
                                 action="callback", callback=print_planfolder, 
                                 help="List all existed plan in the Plan folder. \
-                                The plan folder is defined in the configure '/opt/testkit/shell/CONF'"),
+                                The plan folder is defined in the configure '/opt/tct/shell/CONF'"),
                     make_option("-a", "--all-suites", dest="show_suites", 
                                 action="callback", callback=show_available_suites, 
                                 help="Show all available test-suites"),

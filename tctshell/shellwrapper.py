@@ -41,7 +41,8 @@ def show_available_suites(option, opt_str, value, parser):
         Constants.TEST_SUITE_DIR = "../suites"
     print "Test Suites:...\n"
     os.chdir(Constants.TEST_SUITE_DIR)
-    for files in glob.glob("*.rpm"):
+    rpms = sorted(glob.glob("*.rpm"))
+    for files in rpms:
         #without ".rpm"
         print files[:-4]
     sys.exit(1)
@@ -119,9 +120,9 @@ examples: \n\
           tct-shell  --test package1 package2 ... packageN -o /tmp/wekit-tests-result.xml ...\n\
     rerun all unpassed test: \n\
           tct-shell  --rerun-fail '<somewhere>/test-result.xml' ...\n\
-    show all existed testplan which is in the folder (configured in /opt/testkit/shell/CONFIG): \n\
+    show all existed testplan which is in the folder (configured in /opt/tct/shell/CONFIG): \n\
           tct-shell  --plan-list\n\
-    show all history result which is in the folder (configured in /opt/testkit/shell/CONFIG): \n\
+    show all history result which is in the folder (configured in /opt/tct/shell/CONFIG): \n\
           tct-shell  --result-list\n\
     show all connected devices: \n\
           tct-shell  --device-list\n\
@@ -145,9 +146,9 @@ Note: \n\
                                 help="Enable the ability to release memory when the free memory is less than 100M"),
                     make_option("-v", "--version", dest="version_info", action="callback", callback=print_version, 
                                 help="Show version information"),
-                    make_option("--auto-iu", dest="auto_install", action="store_true", help="Automatically install and uninstall suite packages"),
+                    make_option("--skip-iu", dest="skip_install", action="store_true", help="Automatically install and uninstall suite packages"),
                     make_option("-a", "--all-suites", dest="show_suites", action="callback", callback=show_available_suites, 
-                                help="Show all available test-suites in the local repository, the local repository is defined in the configure '/opt/testkit/shell/CONF'"),
+                                help="Show all available test-suites in the local repository, the local repository is defined in the configure '/opt/tct/shell/CONF'"),
                     make_option("-c", "--capability", dest="capability_file", action="callback", callback=varnarg, 
                                 help="Specify the capability file."),
                     make_option("-t", "--test", dest="suites", action="callback", callback=varnarg, 
@@ -159,12 +160,12 @@ Note: \n\
                     make_option("--deviceid", dest="deviceid", action="callback", callback=varnarg, 
                                 help="set sdb device serial information."),
                     make_option("--plan-list", dest="show_plan_folder", action="callback", callback=print_planfolder, 
-                                help="List all existed plan in the Plan folder. The plan folder is defined in the configure '/opt/testkit/shell/CONF'"),
+                                help="List all existed plan in the Plan folder. The plan folder is defined in the configure '/opt/tct/shell/CONF'"),
                     make_option("--result-list", dest="show_all_result", action="callback", callback=print_resultfolder, 
-                                help="List all history results in the result folder. The result folder is defined in the configure '/opt/testkit/shell/CONF'"),
+                                help="List all history results in the result folder. The result folder is defined in the configure '/opt/tct/shell/CONF'"),
                     make_option("--device-list", dest="show_all_device", action="callback", callback=invoke_sdb_devices, 
                                 help="List all connected devices. just same with 'sdb devices'"),
-                    make_option("--auto", dest="only_auto", action="store_true", help="Only automatic test cases will be executed"),
+                    make_option("--all", dest="all_tc", action="store_true", help="Both manual and auto test cases will be executed, without this option, only auto testcase will be executed."),
                     make_option("--manual", dest="only_manual", action="store_true", help="Only manual test cases will be executed"),
                     make_option("--id", dest="testcase_id", action="callback", callback=varnarg, 
                                 help="Specify to run a test case by id."),
@@ -214,7 +215,7 @@ Note: \n\
          return plan_name
   
      def is_auto_install(self):
-         return self.options.auto_install
+         return not self.options.skip_install
 
      def get_output_param(self):
          return "-o %s" % self.get_output_file_name()
@@ -256,11 +257,14 @@ Note: \n\
          if self.options.capability_file is not None:
              capability_file = " --capability %s" % self.options.capability_file[0]
          return capability_file 
+     
+     def is_cap_param_available(self):
+         return (self.options.capability_file is not None) and (self.options.capability_file[0] is not None)
 
      def get_auto_case_param(self):
-         auto = ""
-         if self.options.only_auto:
-             auto = Constants.ONLY_AUTO_CASES
+         auto = Constants.ONLY_AUTO_CASES
+         if self.options.all_tc or self.options.only_manual:
+             auto = ""
          return auto
 
      def get_manual_case_param(self):
