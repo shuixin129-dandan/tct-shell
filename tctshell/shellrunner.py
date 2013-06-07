@@ -463,6 +463,10 @@ class WrapperRunner:
             self.read_result_xml(result_xml)
         elif running_mode == Constants.RUNNING_MODE_SUITES:
             self.prepare_pkg(f_suites)
+        elif running_mode == None:
+            os.system("tct-shell -h")
+            print "\ntct-shell: Command requires a running mode"
+            sys.exit(1)
 
     def load_testplan_xml(self, testplan_xml):
         try:
