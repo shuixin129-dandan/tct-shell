@@ -427,16 +427,24 @@ class WrapperRunner:
         sum_tree.write(outFile, encoding="utf-8")
         outFile.close()
 
+    def pull_device_capabilities(self, wrapper):
+        pull_command = Constants.SDB_PULL % wrapper.get_sdb_device_id_param() + " " + Constants.DEVICE_CAPABILITY_PATH + " " + Constants.CAPABILITY_PATH
+        print "Command: " + pull_command
+        os.system(pull_command) 
+
     def parse_capablities(self):
+        root = ElementTree.Element('capabilities')
         try:
             capa_root = None
             capa_tree = ElementTree.parse(Constants.CAPABILITY_PATH)
             capa_root = capa_tree.getroot()
-            capa_root.attrib = {}
+
+            for capa in capa_root.findall('capability'):
+                root.append(capa)
         except Exception, e:
             print "[ Error: reading capability XML fail, error: %s ]\n" % e
-        finally:
-            return capa_root
+            root = None
+        return root 
 
     def open_report(self):
         Constants.copy_style_in_result_folder(self.latest_result_folder)

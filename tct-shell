@@ -35,7 +35,6 @@ from tempfile import mktemp
 from datetime import datetime
 from tctshell.shellwrapper import TestKitShellWrapper
 from tctshell.shellrunner import WrapperRunner
-from tctshell.constants import Constants
 
 
 def main():
@@ -48,9 +47,7 @@ def main():
     origin_xml = result_xml
 
     if wrapper.check_sdb_devices():
-        pull_command = Constants.SDB_PULL % wrapper.get_sdb_device_id_param() + " " + Constants.DEVICE_CAPABILITY_PATH + " " + Constants.CAPABILITY_PATH
-        print "Command: " + pull_command
-        os.system(pull_command)
+        runner.pull_device_capabilities(wrapper)
         if wrapper.options.testplan_file is not None:
             print "ExecuteTestPlan: %s" % wrapper.options.testplan_file[0]
             plan = wrapper.options.testplan_file[0]
