@@ -189,6 +189,7 @@ class TotalSummary:
         self.suite_summary_array = []
         self.environment_elm     = None
         self.summary_elm         = None
+        self.capabilities        = None
 
     def set_summary(self, summary):
         self.summary_elm = summary
@@ -199,6 +200,9 @@ class TotalSummary:
     def add_suite_elm(self, suite_elm):
         self.suite_summary_array.append(SuiteSummary(suite_elm))
 
+    def set_capabilities(self, capabilities):
+        self.capabilities = capabilities
+    
     def to_xml(self):
         result_summary = ElementTree.Element('result_summary')
         result_summary.set('plan_name', self.plan_name)
@@ -208,6 +212,9 @@ class TotalSummary:
         if self.summary_elm is not None:
             ElementTree.dump(self.summary_elm)
             result_summary.append(self.summary_elm)
+        if self.capabilities is not None:
+            ElementTree.dump(self.capabilities)
+            result_summary.append(self.capabilities)
         for suite in self.suite_summary_array:
             result_summary.append(suite.to_xml())
         return result_summary
@@ -378,7 +385,7 @@ class WrapperRunner:
 
                     start_at = self.select_start_at(start_at, this_start.text)
                     end_at   = self.select_end_at(end_at, this_end.text)
-                        
+
                     for this_suite in xml_root.findall('suite'):
                         root.append(this_suite)
                         summary_xml.add_suite_elm(this_suite)
@@ -393,7 +400,10 @@ class WrapperRunner:
 
         sum_elm = root.find('summary')
         summary_xml.set_summary(sum_elm)
-        
+
+        capability_root = self.parse_capablities()
+        summary_xml.set_capabilities(capability_root)
+
         tree = ElementTree.ElementTree()
         tree._setroot(root)
 
@@ -416,6 +426,25 @@ class WrapperRunner:
 
         sum_tree.write(outFile, encoding="utf-8")
         outFile.close()
+
+    def pull_device_capabilities(self, wrapper):
+        pull_command = Constants.SDB_PULL % wrapper.get_sdb_device_id_param() + " " + Constants.DEVICE_CAPABILITY_PATH + " " + Constants.CAPABILITY_PATH
+        print "Command: " + pull_command
+        os.system(pull_command)
+
+    def parse_capablities(self):
+        root = ElementTree.Element('capabilities')
+        try:
+            capa_root = None
+            capa_tree = ElementTree.parse(Constants.CAPABILITY_PATH)
+            capa_root = capa_tree.getroot()
+
+            for capa in capa_root.findall('capability'):
+                root.append(capa)
+        except Exception, e:
+            print "[ Error: reading capability XML fail, error: %s ]\n" % e
+        finally:
+            return root
 
     def open_report(self):
         Constants.copy_style_in_result_folder(self.latest_result_folder)
