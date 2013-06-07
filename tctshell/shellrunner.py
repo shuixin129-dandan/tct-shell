@@ -385,7 +385,7 @@ class WrapperRunner:
 
                     start_at = self.select_start_at(start_at, this_start.text)
                     end_at   = self.select_end_at(end_at, this_end.text)
-
+                        
                     for this_suite in xml_root.findall('suite'):
                         root.append(this_suite)
                         summary_xml.add_suite_elm(this_suite)
@@ -430,7 +430,7 @@ class WrapperRunner:
     def pull_device_capabilities(self, wrapper):
         pull_command = Constants.SDB_PULL % wrapper.get_sdb_device_id_param() + " " + Constants.DEVICE_CAPABILITY_PATH + " " + Constants.CAPABILITY_PATH
         print "Command: " + pull_command
-        os.system(pull_command)
+        os.system(pull_command) 
 
     def parse_capablities(self):
         root = ElementTree.Element('capabilities')
@@ -443,8 +443,8 @@ class WrapperRunner:
                 root.append(capa)
         except Exception, e:
             print "[ Error: reading capability XML fail, error: %s ]\n" % e
-        finally:
-            return root
+            root = None
+        return root 
 
     def open_report(self):
         Constants.copy_style_in_result_folder(self.latest_result_folder)

@@ -52,7 +52,6 @@ class Constants:
 
      STYLE_FOLDER = "/opt/tct/shell/style/*"
 
-     # Capability path
      CAPABILITY_PATH = "/opt/tct/shell/tmp/capability.xml"
 
      DEVICE_CAPABILITY_PATH = "/opt/usr/media/Documents/tct/capability.xml"
@@ -68,7 +67,7 @@ class Constants:
      SDB_PUSH = "sdb push"
      SDB_SHELL = "sdb shell"
      SDB_DEVICES = "sdb devices"
-     SDB_PULL = "sdb%s pull"
+     SDB_PULL = "sdb %s pull"
 
      
      #DEVICE
@@ -115,6 +114,6 @@ class Constants:
      def copy_style_in_result_folder(result_folder):
          os.system("cp -r " + Constants.STYLE_FOLDER + " '" + result_folder + "'")
          print "Going to open the result report with FireFox, if Firefox is not available on your machine, please copy the folder '%s' to a Firefox machine." % result_folder
-         os.system("firefox '%s'summary.xml" % result_folder)
+         os.system("firefox '%s'summary.xml &" % result_folder)
 
 
