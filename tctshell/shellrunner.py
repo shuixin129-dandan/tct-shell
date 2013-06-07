@@ -189,6 +189,7 @@ class TotalSummary:
         self.suite_summary_array = []
         self.environment_elm     = None
         self.summary_elm         = None
+        self.capabilities        = None
 
     def set_summary(self, summary):
         self.summary_elm = summary
@@ -199,6 +200,9 @@ class TotalSummary:
     def add_suite_elm(self, suite_elm):
         self.suite_summary_array.append(SuiteSummary(suite_elm))
 
+    def set_capabilities(self, capabilities):
+        self.capabilities = capabilities
+    
     def to_xml(self):
         result_summary = ElementTree.Element('result_summary')
         result_summary.set('plan_name', self.plan_name)
@@ -208,6 +212,9 @@ class TotalSummary:
         if self.summary_elm is not None:
             ElementTree.dump(self.summary_elm)
             result_summary.append(self.summary_elm)
+        if self.capabilities is not None:
+            ElementTree.dump(self.capabilities)
+            result_summary.append(self.capabilities)
         for suite in self.suite_summary_array:
             result_summary.append(suite.to_xml())
         return result_summary
@@ -393,7 +400,10 @@ class WrapperRunner:
 
         sum_elm = root.find('summary')
         summary_xml.set_summary(sum_elm)
-        
+
+        capability_root = self.parse_capablities()
+        summary_xml.set_capabilities(capability_root)
+
         tree = ElementTree.ElementTree()
         tree._setroot(root)
 
@@ -416,6 +426,17 @@ class WrapperRunner:
 
         sum_tree.write(outFile, encoding="utf-8")
         outFile.close()
+
+    def parse_capablities(self):
+        try:
+            capa_root = None
+            capa_tree = ElementTree.parse(Constants.CAPABILITY_PATH)
+            capa_root = capa_tree.getroot()
+            capa_root.attrib = {}
+        except Exception, e:
+            print "[ Error: reading capability XML fail, error: %s ]\n" % e
+        finally:
+            return capa_root
 
     def open_report(self):
         Constants.copy_style_in_result_folder(self.latest_result_folder)

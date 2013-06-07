@@ -52,6 +52,10 @@ class Constants:
 
      STYLE_FOLDER = "/opt/tct/shell/style/*"
 
+     CAPABILITY_PATH = "/opt/tct/shell/tmp/capability.xml"
+
+     DEVICE_CAPABILITY_PATH = "/opt/usr/media/Documents/tct/capability.xml"
+
      #PARAM Option
      XMLFILE_PREFF = "-f device:"
      EXECUTE_PREFF = " -e "
@@ -63,6 +67,7 @@ class Constants:
      SDB_PUSH = "sdb push"
      SDB_SHELL = "sdb shell"
      SDB_DEVICES = "sdb devices"
+     SDB_PULL = "sdb %s pull"
 
      
      #DEVICE
