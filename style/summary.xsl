@@ -205,6 +205,58 @@
 						</table>
 					</div>
 
+					<div id="capability">
+						<div id="title">
+							<a name="contents"></a>
+							<table>
+								<tr>
+									<td class="title">
+										<h1>Device Capability</h1>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<xsl:choose>
+							<xsl:when test="result_summary/capabilities">
+								<table>
+									<tr>
+										<th>Capability Name</th>
+										<th>Type</th>
+										<th>Value</th>
+									</tr>
+									<xsl:for-each select="result_summary/capabilities/capability">
+										<xsl:sort select="@name" />
+										<tr>
+											<td>
+												<xsl:value-of select="@name" />
+											</td>
+											<td>
+												<xsl:value-of select="@type" />
+											</td>
+											<td>
+												<xsl:if test="@support = 'true'">
+													<xsl:choose>
+														<xsl:when test="value">
+															<xsl:value-of select="value" />
+														</xsl:when>
+														<xsl:otherwise>
+															Supported
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:if>
+												<xsl:if test="@support = 'false'">
+												       Unsupported
+												</xsl:if>
+											</td>
+										</tr>
+									</xsl:for-each>
+								</table>
+							</xsl:when>
+							<xsl:otherwise>
+								The information of device capability is not available.
+							</xsl:otherwise>
+						</xsl:choose>
+					</div>
 
 					<div id="suite_summary">
 						<div id="title">
@@ -230,12 +282,14 @@
 							<xsl:for-each select="result_summary/suite">
 								<xsl:sort select="@name" />
 								<tr class="suite_item">
-								    <xsl:attribute name="id">
-                                                <xsl:value-of select="@name" />
+									<xsl:attribute name="id">
+                                                <xsl:value-of
+										select="@name" />
                                     </xsl:attribute>
 									<td>
 										<a>
-											<xsl:attribute name="href"><xsl:value-of select="@name" />.xml</xsl:attribute>
+											<xsl:attribute name="href"><xsl:value-of
+												select="@name" />.xml</xsl:attribute>
 											<xsl:value-of select="@name" />
 										</a>
 									</td>
@@ -255,7 +309,7 @@
 										<xsl:value-of select="na_case" />
 									</td>
 									<td class="Ratio">
-									    <div class="RatioGraphic" />
+										<div class="RatioGraphic" />
 									</td>
 								</tr>
 							</xsl:for-each>

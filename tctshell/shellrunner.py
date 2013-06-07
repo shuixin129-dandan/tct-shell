@@ -207,13 +207,13 @@ class TotalSummary:
         result_summary = ElementTree.Element('result_summary')
         result_summary.set('plan_name', self.plan_name)
         if self.environment_elm is not None:
-            ElementTree.dump(self.environment_elm)
+            #ElementTree.dump(self.environment_elm)
             result_summary.append(self.environment_elm)
         if self.summary_elm is not None:
-            ElementTree.dump(self.summary_elm)
+            #ElementTree.dump(self.summary_elm)
             result_summary.append(self.summary_elm)
         if self.capabilities is not None:
-            ElementTree.dump(self.capabilities)
+            #ElementTree.dump(self.capabilities)
             result_summary.append(self.capabilities)
         for suite in self.suite_summary_array:
             result_summary.append(suite.to_xml())

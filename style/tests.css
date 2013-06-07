@@ -80,6 +80,10 @@ th.Ratio {
 	width: 100%;
 }
 
+#capability table {
+	width: 50%;
+}
+
 #fail_cases table {
 	width: 101%;
 }
