@@ -358,6 +358,10 @@ class WrapperRunner:
         else:
             return this_end_at
 
+    def copy_result_xml(self, result_xml):
+        print "Copying the merged result XML '%s'" % result_xml + "to %s" % self.latest_result_folder        
+        os.system("cp " + result_xml + " '" + self.latest_result_folder + "'")
+
     def merge_suite_result(self, result_xml, plan_name):
         os.chdir(self.latest_result_folder)
         root        = ElementTree.Element('test_definition')
@@ -459,6 +463,10 @@ class WrapperRunner:
             self.read_result_xml(result_xml)
         elif running_mode == Constants.RUNNING_MODE_SUITES:
             self.prepare_pkg(f_suites)
+        elif running_mode == None:
+            os.system("tct-shell -h")
+            print "\ntct-shell: Command requires a running mode"
+            sys.exit(1)
 
     def load_testplan_xml(self, testplan_xml):
         try:

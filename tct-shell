@@ -67,6 +67,8 @@ def main():
         if wrapper.is_fail_rerun_mode():
             runner.merge_result_xml(origin_xml, result_xml)
 
+        runner.copy_result_xml(result_xml)
+
         wrapper.print_result_summary(result_xml)
         runner.open_report()
 
