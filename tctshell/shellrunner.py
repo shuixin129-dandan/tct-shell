@@ -432,6 +432,10 @@ class WrapperRunner:
         outFile.close()
 
     def pull_device_capabilities(self, wrapper):
+        rm_command = 'rm ' + Constants.CAPABILITY_PATH
+        print "Command: " + rm_command
+        os.system(rm_command)
+        
         pull_command = Constants.SDB_PULL % wrapper.get_sdb_device_id_param() + " " + Constants.DEVICE_CAPABILITY_PATH + " " + Constants.CAPABILITY_PATH
         print "Command: " + pull_command
         os.system(pull_command) 
