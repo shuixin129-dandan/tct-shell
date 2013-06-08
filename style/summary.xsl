@@ -234,19 +234,14 @@
 												<xsl:value-of select="@type" />
 											</td>
 											<td>
-												<xsl:if test="@support = 'true'">
-													<xsl:choose>
-														<xsl:when test="value">
-															<xsl:value-of select="value" />
-														</xsl:when>
-														<xsl:otherwise>
-															Supported
-														</xsl:otherwise>
-													</xsl:choose>
-												</xsl:if>
-												<xsl:if test="@support = 'false'">
-												       Unsupported
-												</xsl:if>
+												<xsl:choose>
+													<xsl:when test="value">
+														<xsl:value-of select="value" />
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="@support" />
+													</xsl:otherwise>
+												</xsl:choose>
 											</td>
 										</tr>
 									</xsl:for-each>
