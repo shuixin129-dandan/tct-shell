@@ -112,10 +112,10 @@ class TestKitShellWrapper:
 examples: \n\
           tct-shell  --test package1 package2 ... packageN\n\
           tct-shell  --rerun-fail '<somewhere>/test-result.xml' \n\
-          tct-shell  --testplan  <somewhere>/testplan.xml --capability <somewhere>/capability_list\n\
+          tct-shell  --testplan  <somewhere>/testplan.xml\n\
 \n\
     run a test plan: \n\
-          tct-shell  --testplan  <somewhere>/testplan.xml --capability <somewhere>/capability_list -o /tmp/wekit-tests-result.xml ...\n\
+          tct-shell  --testplan  <somewhere>/testplan.xml -o /tmp/wekit-tests-result.xml ...\n\
     run some test packages: \n\
           tct-shell  --test package1 package2 ... packageN -o /tmp/wekit-tests-result.xml ...\n\
     rerun all unpassed test: \n\
