@@ -149,8 +149,8 @@ Note: \n\
                     make_option("--skip-iu", dest="skip_install", action="store_true", help="Automatically install and uninstall suite packages"),
                     make_option("-a", "--all-suites", dest="show_suites", action="callback", callback=show_available_suites, 
                                 help="Show all available test-suites in the local repository, the local repository is defined in the configure '/opt/tct/shell/CONF'"),
-                    make_option("-c", "--capability", dest="capability_file", action="callback", callback=varnarg, 
-                                help="Specify the capability file."),
+                    #make_option("-c", "--capability", dest="capability_file", action="callback", callback=varnarg, 
+                    #            help="Specify the capability file."),
                     make_option("-t", "--test", dest="suites", action="callback", callback=varnarg, 
                                 help="Specify testing suites. If more than one suites are provided, just list them all and separate with whitespace"),
                     make_option("-r", "--rerun-fail", dest="fail_result_xml", action="callback", callback=varnarg, 
@@ -210,8 +210,8 @@ Note: \n\
              opt = "-r, --rerun-fail"
          elif self.running_mode == Constants.RUNNING_MODE_SUITES and len(self.options.suites) < 1:
              opt = "-t, --test"
-         elif self.options.capability_file is not None and len(self.options.capability_file) < 1:
-             opt = "-c, --capability"
+         #elif self.options.capability_file is not None and len(self.options.capability_file) < 1:
+         #    opt = "-c, --capability"
          elif self.options.deviceid is not None and len(self.options.deviceid) < 1:
              opt = "--deviceid"
          elif self.options.testcase_id is not None and len(self.options.testcase_id) < 1:
@@ -304,12 +304,13 @@ Note: \n\
 
      def get_capability_param(self):
          capability_file = ""
-         if self.options.capability_file is not None:
-             capability_file = " --capability %s" % self.options.capability_file[0]
+         #if self.options.capability_file is not None:
+         #    capability_file = " --capability %s" % self.options.capability_file[0]
          return capability_file 
      
      def is_cap_param_available(self):
-         return (self.options.capability_file is not None) and (self.options.capability_file[0] is not None)
+         #return (self.options.capability_file is not None) and (self.options.capability_file[0] is not None)
+         return False
 
      def get_auto_case_param(self):
          auto = Constants.ONLY_AUTO_CASES
