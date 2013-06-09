@@ -1,6 +1,6 @@
 Summary: TCT-Shell
 Name: tct-shell
-Version: 1.0.0
+Version: 1.0.1
 Release: 1
 License: GPLv2
 Group: Applications/System
