@@ -76,6 +76,7 @@ class Constants:
 
      INSTALL_RPM       = "rpm -i --nodeps /tmp/%s"
      UNINSTALL_RPM     = "rpm -e --nodeps %s"
+     REMOVE_RPM        = "rm -f /tmp/%s"
 
      #Plan Generator
      DEFAULT_MATCH_REGEX = "*.rpm"

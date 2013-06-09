@@ -57,8 +57,10 @@ class PlanSuite:
         os.system(Constants.SDB_SHELL + " " + (Constants.INSTALL_RPM % self.file_name) + wrapper.get_sdb_device_id_param())
 
     def uninstall_suite(self, wrapper):
-        print "Command: " + Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name())
-        os.system(Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name()))
+        print "Command: " + Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name() + " " + wrapper.get_sdb_device_id_param())
+        os.system(Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name()) + " " + wrapper.get_sdb_device_id_param())
+        print "Command: " + Constants.SDB_SHELL + " " +  (Constants.REMOVE_RPM % self.file_name) + " " + wrapper.get_sdb_device_id_param()
+        os.system(Constants.SDB_SHELL + " " +  (Constants.REMOVE_RPM % self.file_name)+ " " + wrapper.get_sdb_device_id_param())
 
     def get_f(self):
         f = Constants.XMLFILE_PREFF + "\"" + Constants.DEVICE_TESTS_FILE % self.get_name()
@@ -99,6 +101,8 @@ class PackageSuite:
     def uninstall_suite(self, wrapper):
         print "Command: " + Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name()) + wrapper.get_sdb_device_id_param()
         os.system(Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name()) + wrapper.get_sdb_device_id_param())
+        print "Command: " + Constants.SDB_SHELL + " " +  (Constants.REMOVE_RPM % self.file_name) + " " + wrapper.get_sdb_device_id_param()
+        os.system(Constants.SDB_SHELL + " " +  (Constants.REMOVE_RPM % self.file_name)+ " " + wrapper.get_sdb_device_id_param())
 
     def get_f(self):
         f = Constants.XMLFILE_PREFF + "\"" + Constants.DEVICE_TESTS_FILE % self.get_name()
@@ -174,6 +178,8 @@ class RerunFailSuite:
      def uninstall_suite(self, wrapper):
          print "Command: " + Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name()) + wrapper.get_sdb_device_id_param()
          os.system(Constants.SDB_SHELL + " " +  (Constants.UNINSTALL_RPM % self.get_rpm_name()) + wrapper.get_sdb_device_id_param())
+         print "Command: " + Constants.SDB_SHELL + " " +  (Constants.REMOVE_RPM % self.file_name) + " " + wrapper.get_sdb_device_id_param()
+         os.system(Constants.SDB_SHELL + " " +  (Constants.REMOVE_RPM % self.file_name)+ " " + wrapper.get_sdb_device_id_param())
 
      def get_f(self):
         f = "-f \"" + Constants.TEMP_UNPASSED_XML_FOLDER + self.name + ".xml"

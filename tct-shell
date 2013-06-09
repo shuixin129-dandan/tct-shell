@@ -58,7 +58,7 @@ def main():
             origin_xml = os.path.abspath(wrapper.options.fail_result_xml[0])
         runner.prepare_testplan(plan, wrapper.running_mode, suites, origin_xml)
 
-        runner.exit_without_capability(wrapper)
+        #runner.exit_without_capability(wrapper)
      
         runner.execute_suite_in_loop(wrapper)
 
