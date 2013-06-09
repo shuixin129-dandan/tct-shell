@@ -40,9 +40,19 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Build</td>
+								<td>Build ID</td>
 								<td>
-									To be implemented
+									<xsl:choose>
+										<xsl:when test="result_summary/environment/@build_id">
+											<xsl:if test="result_summary/environment/@build_id = ''">
+												N/A
+											</xsl:if>
+											<xsl:value-of select="result_summary/environment/@build_id" />
+										</xsl:when>
+										<xsl:otherwise>
+											N/A
+										</xsl:otherwise>
+									</xsl:choose>
 								</td>
 							</tr>
 							<tr>
