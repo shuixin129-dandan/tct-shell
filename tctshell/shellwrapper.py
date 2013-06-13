@@ -115,9 +115,9 @@ examples: \n\
           tct-shell  --testplan  <somewhere>/testplan.xml\n\
 \n\
     run a test plan: \n\
-          tct-shell  --testplan  <somewhere>/testplan.xml -o /tmp/wekit-tests-result.xml ...\n\
+          tct-shell  --testplan  <somewhere>/testplan.xml --output /tmp/wekit-tests-result.xml ...\n\
     run some test packages: \n\
-          tct-shell  --test package1 package2 ... packageN -o /tmp/wekit-tests-result.xml ...\n\
+          tct-shell  --test package1 package2 ... packageN --output /tmp/wekit-tests-result.xml ...\n\
     rerun all unpassed test: \n\
           tct-shell  --rerun-fail '<somewhere>/test-result.xml' ...\n\
     show all existed testplan which is in the folder (configured in /opt/tct/shell/CONFIG): \n\
@@ -137,23 +137,23 @@ Note: \n\
 
      def parse_options(self, argv):
          option_list = [
-                    make_option("-p", "--testplan", dest="testplan_file",
+                    make_option("--testplan", dest="testplan_file",
                                 action="callback", callback=varnarg,
                                 help="Specify the testplan.xml."),
-                    make_option("-o", "--output", dest="resultfile",
+                    make_option("--output", dest="resultfile",
                                 help="Specify output file for result xml. If more than one testxml provided, results will be merged together to this output file"),
                     make_option("--enable-memory-collection", dest="enable_memory_collection", action="store_true",
                                 help="Enable the ability to release memory when the free memory is less than 100M"),
-                    make_option("-v", "--version", dest="version_info", action="callback", callback=print_version, 
+                    make_option("--version", dest="version_info", action="callback", callback=print_version, 
                                 help="Show version information"),
                     make_option("--skip-iu", dest="skip_install", action="store_true", help="Automatically install and uninstall suite packages"),
-                    make_option("-a", "--all-suites", dest="show_suites", action="callback", callback=show_available_suites, 
+                    make_option("--all-suites", dest="show_suites", action="callback", callback=show_available_suites, 
                                 help="Show all available test-suites in the local repository, the local repository is defined in the configure '/opt/tct/shell/CONF'"),
-                    #make_option("-c", "--capability", dest="capability_file", action="callback", callback=varnarg, 
+                    #make_option("--capability", dest="capability_file", action="callback", callback=varnarg, 
                     #            help="Specify the capability file."),
-                    make_option("-t", "--test", dest="suites", action="callback", callback=varnarg, 
+                    make_option("--test", dest="suites", action="callback", callback=varnarg, 
                                 help="Specify testing suites. If more than one suites are provided, just list them all and separate with whitespace"),
-                    make_option("-r", "--rerun-fail", dest="fail_result_xml", action="callback", callback=varnarg, 
+                    make_option("--rerun-fail", dest="fail_result_xml", action="callback", callback=varnarg, 
                                 help="Rerun all fail testcase according to the specified result XML."),
                     make_option(Constants.SKIP_NATIVE_MANUAL, dest="skip_core_memory", action="store_true",
                                 help="Disable the ability to set the result of core manual cases from the console"),
@@ -172,24 +172,24 @@ Note: \n\
                   ]
          # detect non-params
          if len(argv) == 1:
-             argv.append("-h")
+             argv.append("--help")
          PARSERS = OptionParser(option_list=option_list, usage=self.USAGE)
          (self.options, args) = PARSERS.parse_args()
          if self.is_testplan_mode():
 
-             conflicts = ["-p, --testplan"]
+             conflicts = ["--testplan"]
              if self.options.fail_result_xml is not None:
-                conflicts.append("-r, --rerun-fail")
+                conflicts.append("--rerun-fail")
              if self.options.suites is not None:
-                conflicts.append("-t, --test") 
+                conflicts.append("--test") 
              self.conflict_exit(conflicts)
              
              self.running_mode = Constants.RUNNING_MODE_PLAN
          elif self.options.fail_result_xml is not None:
              
-             conflicts = ["-r, --rerun-fail"]
+             conflicts = ["--rerun-fail"]
              if self.options.suites is not None:
-                 conflicts.append("-t, --test")
+                 conflicts.append("--test")
                  self.conflict_exit(conflicts)
              
              self.running_mode = Constants.RUNNING_MODE_RESULT
@@ -205,13 +205,13 @@ Note: \n\
      def check_args_number(self):
          opt = ""
          if self.running_mode == Constants.RUNNING_MODE_PLAN and len(self.options.testplan_file) < 1:
-             opt = "-p, --testplan"
+             opt = "--testplan"
          elif self.running_mode == Constants.RUNNING_MODE_RESULT and len(self.options.fail_result_xml) < 1:
-             opt = "-r, --rerun-fail"
+             opt = "--rerun-fail"
          elif self.running_mode == Constants.RUNNING_MODE_SUITES and len(self.options.suites) < 1:
-             opt = "-t, --test"
+             opt = "--test"
          #elif self.options.capability_file is not None and len(self.options.capability_file) < 1:
-         #    opt = "-c, --capability"
+         #    opt = "--capability"
          elif self.options.deviceid is not None and len(self.options.deviceid) < 1:
              opt = "--deviceid"
          elif self.options.testcase_id is not None and len(self.options.testcase_id) < 1:
@@ -337,7 +337,6 @@ Note: \n\
              suites = root.findall('suite')
              
              total_cases = len(root.findall('suite/set/testcase'))
-             #TODO below info should be replace by the summary obj
              print "[Result: execute %d suites]" % len(suites)
              print "[  total case number: %d ]" % total_cases
              if total_cases > 0:
