@@ -571,6 +571,7 @@ class WrapperRunner:
                         origin_set.append(new_tc)
                         break
             origin_tree.write(origin_xml, encoding="utf-8")
+            print "The new results are merged with the original one % ." % origin_xml
         except Exception, e:
             print "[ Error: reading suite Result XML fail, error: %s ]\n" % e
 
