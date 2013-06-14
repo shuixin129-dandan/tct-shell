@@ -31,6 +31,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 
+%post
+# Set permissions
+chmod ugo+rwx /opt/tct/shell
+
 %files
 /usr/lib/python2.7/dist-packages/tctshell/*
 /opt/tct/shell
