@@ -34,6 +34,7 @@ from shutil import copyfile
 from tempfile import mktemp
 from datetime import datetime
 from constants import Constants
+import os.path
 
 #show all available suites
 def show_available_suites(option, opt_str, value, parser):
@@ -304,13 +305,12 @@ Note: \n\
 
      def get_capability_param(self):
          capability_file = ""
-         #if self.options.capability_file is not None:
-         #    capability_file = " --capability %s" % self.options.capability_file[0]
+         if os.path.isfile(Constants.CAPABILITY_PATH):
+             capability_file = " --capability %s" % Constants.CAPABILITY_PATH
          return capability_file 
      
      def is_cap_param_available(self):
-         #return (self.options.capability_file is not None) and (self.options.capability_file[0] is not None)
-         return False
+         return os.path.isfile(Constants.CAPABILITY_PATH)
 
      def get_auto_case_param(self):
          auto = Constants.ONLY_AUTO_CASES
