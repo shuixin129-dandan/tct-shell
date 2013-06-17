@@ -67,7 +67,8 @@ class PlanSuite:
         return Constants.add_right_enbrace(f)
     
     def get_e(self):
-        e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD + " %s" % self.get_name()
+        #e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD + " %s" % self.get_name()
+        e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD
         return Constants.add_right_enbrace(e)
 
 class PackageSuite:
@@ -109,7 +110,8 @@ class PackageSuite:
         return Constants.add_right_enbrace(f)
     
     def get_e(self):
-        e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD + " %s" % self.get_name()
+        #e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD + " %s" % self.get_name()
+        e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD
         return Constants.add_right_enbrace(e)
 
 class RerunFailSuite:
@@ -186,7 +188,8 @@ class RerunFailSuite:
         return Constants.add_right_enbrace(f)
     
      def get_e(self):
-        e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD + " %s" % self.get_name()
+        #e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD + " %s" % self.get_name()
+        e = Constants.EXECUTE_PREFF + "\"" + Constants.WRT_LAUNCHR_CMD
         return Constants.add_right_enbrace(e)
 
 class TotalSummary:
@@ -331,8 +334,6 @@ class WrapperRunner:
             f = suite.get_f()
             e = suite.get_e()
             command = "testkit-lite %s " % (f + " " + e)
-            command += "%s " % wrapper.get_memory_param()
-            command += "%s " % wrapper.get_skip_native_manual_cases_param()
             command += "%s " % wrapper.get_deviceid_param()
             command += "%s " % wrapper.get_capability_param()
             command += "%s " % wrapper.get_auto_case_param()

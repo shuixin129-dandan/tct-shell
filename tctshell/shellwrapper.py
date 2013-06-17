@@ -143,21 +143,15 @@ Note: \n\
                                 help="Specify the testplan.xml."),
                     make_option("--output", dest="resultfile",
                                 help="Specify output file for result xml. If more than one testxml provided, results will be merged together to this output file"),
-                    make_option("--enable-memory-collection", dest="enable_memory_collection", action="store_true",
-                                help="Enable the ability to release memory when the free memory is less than 100M"),
                     make_option("--version", dest="version_info", action="callback", callback=print_version, 
                                 help="Show version information"),
                     make_option("--skip-iu", dest="skip_install", action="store_true", help="Automatically install and uninstall suite packages"),
                     make_option("--all-suites", dest="show_suites", action="callback", callback=show_available_suites, 
                                 help="Show all available test-suites in the local repository, the local repository is defined in the configure '/opt/tct/shell/CONF'"),
-                    #make_option("--capability", dest="capability_file", action="callback", callback=varnarg, 
-                    #            help="Specify the capability file."),
                     make_option("--test", dest="suites", action="callback", callback=varnarg, 
                                 help="Specify testing suites. If more than one suites are provided, just list them all and separate with whitespace"),
                     make_option("--rerun-fail", dest="fail_result_xml", action="callback", callback=varnarg, 
                                 help="Rerun all fail testcase according to the specified result XML."),
-                    make_option(Constants.SKIP_NATIVE_MANUAL, dest="skip_core_memory", action="store_true",
-                                help="Disable the ability to set the result of core manual cases from the console"),
                     make_option("--deviceid", dest="deviceid", action="callback", callback=varnarg, 
                                 help="set sdb device serial information."),
                     make_option("--plan-list", dest="show_plan_folder", action="callback", callback=print_planfolder, 
@@ -211,8 +205,6 @@ Note: \n\
              opt = "--rerun-fail"
          elif self.running_mode == Constants.RUNNING_MODE_SUITES and len(self.options.suites) < 1:
              opt = "--test"
-         #elif self.options.capability_file is not None and len(self.options.capability_file) < 1:
-         #    opt = "--capability"
          elif self.options.deviceid is not None and len(self.options.deviceid) < 1:
              opt = "--deviceid"
          elif self.options.testcase_id is not None and len(self.options.testcase_id) < 1:
@@ -278,18 +270,6 @@ Note: \n\
          else:
              output = Constants.TEMP_UNPASSED_XML_FOLDER + "result.xml"
          return output
-
-     def get_memory_param(self):
-         memory_param = ""
-         if self.options.enable_memory_collection:
-             memory_param = "--enable-memory-collection"
-         return memory_param
-
-     def get_skip_native_manual_cases_param(self):
-         skip = ""
-         if self.options.skip_core_memory:
-             skip = Constants.SKIP_NATIVE_MANUAL
-         return skip
 
      def get_deviceid_param(self):
          deviceid = ""

@@ -59,7 +59,6 @@ class Constants:
      #PARAM Option
      XMLFILE_PREFF = "-f device:"
      EXECUTE_PREFF = " -e "
-     SKIP_NATIVE_MANUAL = "--non-active"
      ONLY_AUTO_CASES = "-A"
      ONLY_MANUAL_CASES = "-M"
      
