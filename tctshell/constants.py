@@ -50,11 +50,11 @@ class Constants:
 
      TCT_PLAN_FOLDER = parser.get('TCTSHELL', 'TCT_PLAN_FOLDER')
 
-     STYLE_FOLDER = "/opt/tct/shell/style/*"
+     STYLE_FOLDER = TCT_SHELL_HOME + "/style/*"
 
-     CAPABILITY_PATH = "/opt/tct/shell/tmp/capability.xml"
+     CAPABILITY_PATH = TCT_SHELL_HOME + "/tmp/capability.xml"
 
-     DEVICE_CAPABILITY_PATH = "/opt/usr/media/Documents/tct/capability.xml"
+     DEVICE_CAPABILITY_PATH = parser.get('Device', 'DEVICE_CAPABILITY_PATH')
 
      #PARAM Option
      XMLFILE_PREFF = "-f device:"

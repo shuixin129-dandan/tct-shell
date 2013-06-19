@@ -1,5 +1,5 @@
 [TCTSHELL]
-TEST_SUITE_DIR  = /home/package/
+TEST_SUITE_DIR  = /opt/tct/packages/
 WRT_LAUNCHR_CMD = WRTLauncher
 TCT_SHELL_HOME  = /opt/tct/shell
 TCT_PLAN_FOLDER = /opt/tct/shell/plan/
@@ -7,5 +7,5 @@ TCT_PLAN_FOLDER = /opt/tct/shell/plan/
 [Device]
 DEVICE_TMP_FOLDER = /tmp/
 DEVICE_TESTS_FILE = /usr/share/%s/tests.xml
-
+DEVICE_CAPABILITY_PATH = /opt/usr/media/Documents/tct/capability.xml
 
