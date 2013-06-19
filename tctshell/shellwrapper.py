@@ -24,6 +24,7 @@ import os
 import re
 import sys, traceback
 import time
+import subprocess
 import platform
 import ctypes
 import glob
@@ -373,3 +374,23 @@ Note: \n\
 
          return sdb_ok
 
+     def check_sdb_devices_env(self):
+         """shell communication for quick return in sync mode"""
+         env_ok = False;
+         proc = subprocess.Popen(Constants.DEVICE_HEALTH_CHECK_CMD,
+                            shell=True,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+         ret1 = proc.stdout.readlines()
+         ret2 = proc.stderr.readlines()
+         exit_code = proc.poll()
+         if exit_code is not None and exit_code == 0:
+            env_ok = True
+            print "Finished the env check. OK"
+         else:
+            print "The device configuration is not right."
+            result = ret1 or ret2
+            for l in result:
+                print l,
+
+         return env_ok

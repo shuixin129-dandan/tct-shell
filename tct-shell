@@ -46,7 +46,7 @@ def main():
     result_xml = wrapper.get_output_file_name()
     origin_xml = result_xml
 
-    if wrapper.check_sdb_devices():
+    if wrapper.check_sdb_devices() and wrapper.check_sdb_devices_env():
         runner.pull_device_capabilities(wrapper)
         if wrapper.options.testplan_file is not None:
             print "ExecuteTestPlan: %s" % wrapper.options.testplan_file[0]
