@@ -377,15 +377,14 @@ Note: \n\
      def check_sdb_devices_env(self):
          """shell communication for quick return in sync mode"""
          env_ok = False;
-         cmd = "/opt/tct/scripts/tct-config-device.sh --check"
-         proc = subprocess.Popen(cmd,
+         proc = subprocess.Popen(Constants.DEVICE_HEALTH_CHECK_CMD,
                             shell=True,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
          ret1 = proc.stdout.readlines()
          ret2 = proc.stderr.readlines()
          exit_code = proc.poll()
-         if exit_code is None or exit_code == 0:
+         if exit_code is not None and exit_code == 0:
             env_ok = True
             print "Finished the env check. OK"
          else:

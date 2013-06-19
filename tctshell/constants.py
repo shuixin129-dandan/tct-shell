@@ -56,6 +56,8 @@ class Constants:
 
      DEVICE_CAPABILITY_PATH = "/opt/usr/media/Documents/tct/capability.xml"
 
+     DEVICE_HEALTH_CHECK_CMD = "/opt/tct/scripts/tct-config-device.sh --check"
+
      #PARAM Option
      XMLFILE_PREFF = "-f device:"
      EXECUTE_PREFF = " -e "
