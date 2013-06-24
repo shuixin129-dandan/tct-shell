@@ -124,7 +124,7 @@ class RerunFailSuite:
                  self.file_name = files
                  break
          if self.file_name is None:
-             print "Error! the package %s is not found!" % name
+             print "Error! the package %s is not found!" % self.name
 
          self.suite = suite
          print "parsing the suite: " + self.name
@@ -532,6 +532,13 @@ class WrapperRunner:
             xml_root = xml_tree.getroot()
             # all suites
             for xml_suite in xml_root.findall('suite'):
+                launcher = xml_suite.get("launcher")
+                print "Launcher: %s" % launcher
+                if launcher is not None:
+                    launcher = launcher.strip()
+                    if launcher.endswith("-r") or launcher.endswith("-a"):
+                         print "The suite: %s is a UIFW suite, skipped" % xml_suite.get("name")
+                         continue
                 suite = RerunFailSuite(xml_suite)
                 if suite.is_empty():
                     print "No unpassed test cases is found in the suite %s; skip it!" % suite.get_name()
